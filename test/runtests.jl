@@ -9,6 +9,12 @@ if parse(Bool, get(ENV, "TEST_PERF_INTEGRATION", "true"))
     println("done (took ", took_seconds, " seconds)")
 end
 
+if parse(Bool, get(ENV, "TEST_PERF_INTEGRATION", "true"))
+    print("Testing BaseBenchmarks integration...")
+    took_seconds = @elapsed include("BaseBenchmarkIntegrationTests.jl")
+    println("done (took ", took_seconds, " seconds)")
+end
+
 print("Testing code quality...")
 took_seconds = @elapsed Aqua.test_all(BenchmarkToolsPlusLinuxPerf, piracies = false)
 println("done (took ", took_seconds, " seconds)")
