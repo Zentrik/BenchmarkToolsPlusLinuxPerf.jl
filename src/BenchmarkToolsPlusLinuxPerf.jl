@@ -62,7 +62,8 @@ function __init__()
 
     # Serialization
     BenchmarkTools.VERSIONS["LinuxPerf"] = pkgversion(LinuxPerf)
-    BenchmarkTools.VERSIONS["BenchmarkToolsPlusLinuxPerf"] = pkgversion(BenchmarkToolsPlusLinuxPerf)
+    BenchmarkTools.VERSIONS["BenchmarkToolsPlusLinuxPerf"] =
+        pkgversion(BenchmarkToolsPlusLinuxPerf)
 end
 
 end # module BenchmarkToolsPlusLinuxPerf
