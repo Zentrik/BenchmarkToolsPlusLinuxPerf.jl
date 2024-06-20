@@ -1,0 +1,26 @@
+name = "BenchmarkToolsPlusLinuxPerf"
+uuid = "a085a59e-734d-48b4-b85a-ecffc97f971a"
+authors = ["Zentrik <Zentrik@users.noreply.github.com>"]
+version = "0.1.0"
+
+[deps]
+BenchmarkTools = "6e4b80f9-dd63-53aa-95a3-0cdb28fa8baf"
+LinuxPerf = "b4c46c6c-4fb0-484d-a11a-41bc3392d094"
+Reexport = "189a3867-3050-52da-a836-e630ba90ab69"
+
+[compat]
+Aqua = "0.8"
+BenchmarkTools = "1.6"
+JuliaFormatter = "1"
+LinuxPerf = "0.3.8"
+Reexport = "1"
+Test = "<0.0.1, 1"
+julia = "1.6"
+
+[extras]
+Aqua = "4c88cf16-eb10-579e-8560-4a9242c79595"
+JuliaFormatter = "98e50ef6-434e-11e9-1051-2b60c6c9e899"
+Test = "8dfed614-e22c-5e08-85e1-65c5234f0b40"
+
+[targets]
+test = ["Aqua", "JuliaFormatter", "Test"]
