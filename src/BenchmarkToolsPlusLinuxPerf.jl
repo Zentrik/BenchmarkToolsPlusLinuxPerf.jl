@@ -1,6 +1,7 @@
 module BenchmarkToolsPlusLinuxPerf
 
 using LinuxPerf, Reexport
+using Compat: pkgversion
 @reexport using BenchmarkTools
 
 # Task clock has large overhead so is not useful for the short time we run functions under perf
@@ -61,6 +62,7 @@ function __init__()
 
     # Serialization
     BenchmarkTools.VERSIONS["LinuxPerf"] = pkgversion(LinuxPerf)
+    BenchmarkTools.VERSIONS["BenchmarkToolsPlusLinuxPerf"] = pkgversion(BenchmarkToolsPlusLinuxPerf)
 end
 
 end # module BenchmarkToolsPlusLinuxPerf
