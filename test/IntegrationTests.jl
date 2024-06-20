@@ -12,21 +12,12 @@ bb = run(b)
 function eq(x::T, y::T) where {T<:Union{values(BenchmarkTools.SUPPORTED_TYPES)...}}
     return all(i -> eq(getfield(x, i), getfield(y, i)), 1:fieldcount(T))
 end
-function eq(x::BenchmarkTools.Parameters, y::BenchmarkTools.Parameters)
-    return all(
-        i -> eq(getfield(x, i), getfield(y, i)),
-        1:fieldcount(BenchmarkTools.Parameters),
-    )
-end
 eq(x::T, y::T) where {T} = x == y
 function eq(x::LinuxPerf.Stats, y::LinuxPerf.Stats)
     return all(a -> eq(a[1], a[2]), zip(x.threads, y.threads))
 end
 function eq(x::LinuxPerf.ThreadStats, y::LinuxPerf.ThreadStats)
     return x.pid == y.pid && x.groups == y.groups
-end
-function eq(x::Function, y::Function)
-    x == BenchmarkTools._nothing_func
 end
 function withtempdir(f::Function)
     d = mktempdir()

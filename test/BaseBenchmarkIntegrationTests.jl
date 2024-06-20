@@ -2,7 +2,7 @@ module LinuxPerfIntegrationTests
 
 using Test
 using Pkg
-Pkg.add(url="https://github.com/JuliaCI/BaseBenchmarks.jl")
+Pkg.add(url = "https://github.com/JuliaCI/BaseBenchmarks.jl")
 using BenchmarkToolsPlusLinuxPerf, BaseBenchmarks, LinuxPerf
 
 BaseBenchmarks.load!("problem")
@@ -15,7 +15,10 @@ res = @test_nowarn run(BaseBenchmarks.SUITE[["problem", "raytrace"]])["raytrace"
 @test minimum(res).allocs > 1e5
 
 @test res.customisable_result !== nothing
-@test maximum(res).customisable_result == mean(res).customisable_result == minimum(res).customisable_result == res.customisable_result
+@test maximum(res).customisable_result ==
+      mean(res).customisable_result ==
+      minimum(res).customisable_result ==
+      res.customisable_result
 @test any(res.customisable_result.threads) do thread
     instructions = LinuxPerf.scaledcount(thread["instructions"])
     !isnan(instructions) && instructions > 10^6
@@ -33,7 +36,10 @@ for (name, group_results) in BenchmarkTools.leaves(results)
     @test minimum(group_results).allocs >= 0
 
     @test group_results.customisable_result !== nothing
-    @test maximum(group_results).customisable_result == mean(group_results).customisable_result == minimum(group_results).customisable_result == group_results.customisable_result
+    @test maximum(group_results).customisable_result ==
+          mean(group_results).customisable_result ==
+          minimum(group_results).customisable_result ==
+          group_results.customisable_result
     @test any(group_results.customisable_result.threads) do thread
         instructions = LinuxPerf.scaledcount(thread["instructions"])
         !isnan(instructions) && instructions > 10^4
