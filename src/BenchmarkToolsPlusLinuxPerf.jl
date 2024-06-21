@@ -20,7 +20,7 @@ prehook() = LinuxPerf.enable_all!()
 posthook() = LinuxPerf.disable_all!()
 
 # Recovers LinuxPerf.Stats from serialized form
-BenchmarkTools.customisable_result_recover(d) = _convert(Union{Nothing,LinuxPerf.Stats}, d)
+BenchmarkTools.customizable_result_recover(d) = _convert(Union{Nothing,LinuxPerf.Stats}, d)
 function _convert(::Type{Union{Nothing,LinuxPerf.Stats}}, d)
     if isnothing(d)
         return nothing
@@ -56,8 +56,8 @@ function __init__()
         sample_result = sample_result,
         prehook = prehook,
         posthook = posthook,
-        customisable_gcsample = true,
-        enable_customisable_func = :LAST,
+        customizable_gcsample = true,
+        enable_customizable_func = :LAST,
     )
 
     # Serialization

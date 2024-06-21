@@ -5,7 +5,7 @@ using BenchmarkToolsPlusLinuxPerf
 using LinuxPerf
 
 ### Serialization Test ###
-b = @benchmarkable sin(1) enable_customisable_func = :LAST
+b = @benchmarkable sin(1) enable_customizable_func = :LAST
 tune!(b)
 bb = run(b)
 
@@ -46,21 +46,21 @@ end
 ##################################
 
 b = @benchmarkable sin($(Ref(42.0))[])
-results = run(b; seconds = 1, enable_customisable_func = :FALSE)
-@test results.customisable_result === nothing
+results = run(b; seconds = 1, enable_customizable_func = :FALSE)
+@test results.customizable_result === nothing
 
 b = @benchmarkable sin($(Ref(42.0))[])
 results = run(b; seconds = 1)
-@test results.customisable_result !== nothing
-@test any(results.customisable_result.threads) do thread
+@test results.customizable_result !== nothing
+@test any(results.customizable_result.threads) do thread
     instructions = LinuxPerf.scaledcount(thread["instructions"])
     !isnan(instructions) && instructions > 10
 end
 
 b = @benchmarkable sin($(Ref(42.0))[])
-results = run(b; seconds = 1, enable_customisable_func = :LAST, evals = 10^3)
-@test results.customisable_result !== nothing
-@test any(results.customisable_result.threads) do thread
+results = run(b; seconds = 1, enable_customizable_func = :LAST, evals = 10^3)
+@test results.customizable_result !== nothing
+@test any(results.customizable_result.threads) do thread
     instructions = LinuxPerf.scaledcount(thread["instructions"])
     !isnan(instructions) && instructions > 10^4
 end
@@ -90,10 +90,10 @@ end
 groups["special"]["comprehension"] = @benchmarkable [s^2 for s in sizes]
 
 tune!(groups)
-results = run(groups; enable_customisable_func = :LAST)
+results = run(groups; enable_customizable_func = :LAST)
 for (name, group_results) in BenchmarkTools.leaves(results)
-    @test group_results.customisable_result !== nothing
-    @test any(group_results.customisable_result.threads) do thread
+    @test group_results.customizable_result !== nothing
+    @test any(group_results.customizable_result.threads) do thread
         instructions = LinuxPerf.scaledcount(thread["instructions"])
         !isnan(instructions) && instructions > 10^3
     end
